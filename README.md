@@ -14,7 +14,8 @@ This repository contains example Python code for various patterns, functions, an
 - LSTM Neural Network (Timeseries)
     - [Blog](LSTM/README.md)
 
-- Multi-processing
+- Multiprocessing
+    - When developers need to get around the global interpretter lock, the [base multiprocessing library](https://docs.python.org/3/library/multiprocessing.html) and python will solve your problems, 
     - [Blog](multiprocessingExample/README.md)
 
 - Super/Child Classes
