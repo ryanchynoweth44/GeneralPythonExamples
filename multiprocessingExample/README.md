@@ -1,3 +1,3 @@
-# Multi-processing in Python
+# Multiprocessing in Python
 
 For many of my solutions I was using the base threading library to develop and run multiple functions in "parallel". However, as I started to run simulations I started to really understand the drawback of the global interpreter lock in python. My goal was to run Monte Carlo simulations in distinct environments that were not dependent on each other. I noticed that the threading library really did not execute my code in parallel even if I wrote a "simulation" function that I wanted to execute. 

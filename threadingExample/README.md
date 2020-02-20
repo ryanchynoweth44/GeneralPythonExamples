@@ -1,10 +1,9 @@
-# Multithreading in Python 
+# Threading in Python 
 
 
-The global interpretter lock is something that I first learned when I started developing in Python. It was never really an issue as I was typically working in sequential and single threaded applications. Then I realized how great the multi threading library in python is for calling and saving data from REST APIs. I provide a simple [example](./threadingAPIData.py) of how to call a rest api and save the data to a csv using the built in threading library. 
+The global interpreter lock is something that I first learned when I started developing in Python. It was never really an issue as I was typically working in sequential and single threaded applications. Then as developed more and more applications I realized how useful multiple threads can be in an application, as it allows you to accomplish many tasks by kicking off different threads. One use case that I really enjoy using the threading library in python is for calling and saving data from REST APIs. Simple data collection activities are easy to do sequentially in a python script, but multithreading can provide some very nice capabilities in these types of applications. In this simple [example](./threadingAPIData.py), I walk through the process of calling a REST API and save the data to a csv using the built in threading library. 
 
-
-The general setup of the solutions involves creating a data collection function that is run on a separate thread. The purpose of this function is to collect data as it is available or on a regular cadence. As the thread is collecting data, it is dumping the requested information into a queue for the main function to access and process. 
+The general setup of the solutions involves creating a data collection function that is run on a separate thread. The purpose of this function is to collect data as it is available or on a regular cadence and put it into a queue to be processed later. As the thread is collecting data, it is dumping the requested information into a queue for the main function to access and process as data is available there. This creates a somewhat event based processing engine.  
 
 To get started import the following libraries. 
 ```python
@@ -21,7 +20,7 @@ import json
 
 Next we will create a function that collects data from [openweathermap rest APIs](https://openweathermap.org/current). To access the APIs simply create a free account and request and API key. Please note that it may take a few minutes for the API to activate on their system. I was receiving 401 errors for a few minutes before it started returning data.  
 
-The following function runs on a continuous loops but only gets data one time each hour between the first six minutes of each hour. 
+The following function runs on a continuous loop but only gets data one time each hour between the first six minutes of each hour. 
 ```python
 
 def request_data(city_name):
@@ -98,7 +97,7 @@ if __name__ == "main":
 ```
 
 
-Note that we could create another Python thread that automatically formats our data and returns a flatten dictionary. 
+Note that we could create another Python thread that automatically formats our data and returns a flatten dictionary. This this case the thread picks up the original data of the first queue, transforms it, and adds it to another queue.  
 ```python
 
 def format_data():
@@ -137,7 +136,7 @@ def format_data():
 ```
 
 
-So then our main function would be something like the following:  
+So then our main function would be something like the following, instead of the previous code snippet.   
 ```python
 if __name__ == "main":
     # create variables
@@ -149,7 +148,7 @@ if __name__ == "main":
     x = threading.Thread(target=request_data, args=(city_name,))
     x.start()
 
-    y = threading.Thread(target=request_data))
+    y = threading.Thread(target=format_data))
     y.start()
 
     # get data and write to pandas 
@@ -162,13 +161,14 @@ if __name__ == "main":
 ```
 
 
-If we create all three functions then it opens our main function up to complete other actions, like sending alerts or mananging even more threads! There are a few things worth noting about threading: 
-1. Threading does not bypass the global interpretter lock. Each function will execute sequentially, and completely before starting the work of another thread. 
-    - This means that high volume data collection applications are not a great use case as data may pile up in the queue as you are trying to write to the database. 
-    - The benefit of this is that threads can share variables, for example our queue is shared between the main entrypoint and the threading function. 
+There are a couple things worth noting about threading: 
+1. Threading does not bypass the global interpreter lock. Each function will execute sequentially, and completely before starting the work of another thread. 
+    - This means that high volume data collection applications are not a great use case as data may pile up in the queue as you are trying to write to the database. Or if threads take a long period of time to execute then you have a thread pile up waiting for them to complete.  
+    - However, a big benefit of threading is the ability for threads to share variables, for example our queues are shared between the main entrypoint and the threading function allowing us to easily pass data between them. 
 
 1. The `time.sleep` command halts execution on a thread. The command actually stops the execution of current thread and will pickup where it left off. 
     - Please check the [hello world example](threadingHelloWorld.py) to see this in action. You will notice that the second thread prints much more often than the first thread and doesn't have to wait for the first thread to complete the second print. 
 
 
 
+Feel free to recommend any other examples or use cases of threading, and enjoying coding!

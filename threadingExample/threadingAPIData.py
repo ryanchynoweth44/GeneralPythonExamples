@@ -29,7 +29,7 @@ def request_data(city_name):
 
 
 
-if __name__ == "main":
+if __name__ == "__main__":
     city_name = "Seattle"
     q = queue.Queue()
 

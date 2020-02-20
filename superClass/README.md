@@ -1,9 +1,9 @@
 # Using Parent and Child Classes in Python 
 
 All software development projects will result in some number of classes being created to support the solution and there is bound to be some sort of inheritance that takes place. For me, I often use a super class and sub class in my python projects in order to obtain the following functionality. 
-- The ability to substiture attributes and functions of a specific class based on functionality
+- The ability to substitute attributes and functions of a specific class based on functionality
 - The ability to utilize functions and attributes from a superclass in a subclass
-- The ability to override functions and attributes in a super class from a subclass 
+- The ability to override functions and attributes in a superclass from a subclass 
 
 
 In this short example I have created two classes:
