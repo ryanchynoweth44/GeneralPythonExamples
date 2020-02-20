@@ -28,6 +28,9 @@ share/python-wheels/
 MANIFEST
 *.vscode
 
+create_env_vars.py
+*.csv
+
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
