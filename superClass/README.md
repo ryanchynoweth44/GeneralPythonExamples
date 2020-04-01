@@ -11,7 +11,7 @@ In this short example I have created two classes:
 - [`subClass.py`](subClass.py): the child class that I intend to extend the parent class with. 
 
 
-In order to run the `main.py` code you should be in the root repository so that the class imports execute as expected. You will notice the following code. Please reference the detailed comments in order to learn more about the set up of the classes. 
+In order to run the `main.py` code you should be in the root directory of this repository so that the class imports execute as expected. You will notice the following code. Please reference the detailed comments in order to learn more about the set up of the classes. 
 
 ```python
 ## import ONLY the subclass as we will utilize the parent class
