@@ -4,6 +4,7 @@ All software development projects will result in some number of classes being cr
 - The ability to substitute attributes and functions of a specific class based on functionality
 - The ability to utilize functions and attributes from a superclass in a subclass
 - The ability to override functions and attributes in a superclass from a subclass 
+- Portability. If I want to generalize and reuse many variables or functions then I will add those to the parent class. I can then create many subclasses or iterate over a single one to enhance my code. Essentially, treating the parent as a core part of the solution where the child class can be substituted at anytime. 
 
 
 In this short example I have created two classes:
