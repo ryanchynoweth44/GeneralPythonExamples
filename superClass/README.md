@@ -23,15 +23,18 @@ from superClass.subClass import SubClass
 s = SubClass(1, 2, 3, 4)
 
 ## the "superFunction" is only available in the parent class. 
-## you will notice that we are able to call a parent clas function with a child class object. 
+## you will notice that we are able to call a parent class function with a child class object. 
 s.superFunction(addition=20)
 
 ## the "overwriteFunction" is present in both the parent and child classes. 
-## you will notice that there is a difference in what values will be ommited 
+## you will notice that the functions are different 
+## since we are calling the function from a subclass then the subclass function 
+## overrides the parent function
 s.overwriteFunction()
 
 ## This function is only available in the subclass 
 ## however this function is dependent on a parent class function
+## Meaning the main function call is in the subclass, but it calls a function in the parent class. 
 s.anotherfunction(addition=40)
 
 ```
