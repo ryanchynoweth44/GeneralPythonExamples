@@ -1,5 +1,5 @@
 # GeneralPythonExamples
-This repository contains example Python code for various patterns, functions, and libraries. This acts as a note keeping repository as well as a decent reference for anyone who needs a "hello world" walkthrough of a topic. 
+This repository contains example Python code for various patterns, functions, and libraries. This repository is mostly anote keeping repository so that I can easily reference pieces of code that I have written in the past. I make the repository public in case anyone finds it useful for a "hello world" walkthrough of a topic. 
 
 ## Examples
 
