@@ -19,4 +19,4 @@ Demo Steps:
 My references:
 - [Towards Data Science Blog](https://towardsdatascience.com/building-efficient-custom-datasets-in-pytorch-2563b946fd9f)
 - [PyTorch Documentation](https://pytorch.org/tutorials/beginner/data_loading_tutorial.html) 
-
+- [Standford Blog](https://stanford.edu/~shervine/blog/pytorch-how-to-generate-data-parallel)
