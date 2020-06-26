@@ -17,6 +17,13 @@ start = datetime(2020, 1,1)
 end = datetime(2020, 6, 15)
 counter = 0
 
+
+#### Notice 
+## You will see that we are saving a custom index to each of the csvs
+## this will be used in our dataset tutorial so that we can easily get the data loaded from files
+
+
+index_value = 0
 while start < end:
     print("Parition Download: {} | {}".format(counter, start))
     # format the end datetime
@@ -30,7 +37,10 @@ while start < end:
 
     # format and save as a pandas df and CSV
     df = pd.DataFrame(data, columns=column_headers)
-    df.to_csv("{}/btc_parition_{}.csv".format(data_save_path, counter), index=False)
+    df_length = len(df)
+    df.index = range(index_value, index_value+df_length)
+    df.to_csv("{}/btc_parition_{}.csv".format(data_save_path, counter), index=True)
     counter+=1
+    index_value += df_length
 
     time.sleep(1) # sleep to avoid rate limits
