@@ -39,8 +39,11 @@ while start < end:
     df = pd.DataFrame(data, columns=column_headers)
     df_length = len(df)
     df.index = range(index_value, index_value+df_length)
-    df.to_csv("{}/btc_parition_{}.csv".format(data_save_path, counter), index=True)
+    string_cnt = str(counter) if counter > 9 else "0{}".format(counter)
+    df.to_csv("{}/btc_parition_{}.csv".format(data_save_path, string_cnt), index=True)
     counter+=1
     index_value += df_length
 
     time.sleep(1) # sleep to avoid rate limits
+
+

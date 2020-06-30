@@ -4,7 +4,7 @@ PyTorch data loaders are an excellent way to batch and process your data for dee
 
 One huge advantage to using Data Loaders is the developers ability to customize and create their own loaders, espcially when data is larger in size or if data is unsually formatted. A custom data loader allows engineers to keep data on disk and load/transform data as needed during training. 
 
-In this example, we will use bitcoin timeseries data and create our own data loader. Please note that this tutorial focuses on how to utilize custom datasets and data loaders in PyTorch for tabular data, and will not implement or train any neural network.  
+In this example, we will use bitcoin timeseries data and create our own data loader. Please note that this demo focuses on how to utilize custom datasets and data loaders in PyTorch for tabular data, and will not implement or train any neural network.  
 
 
 Demo Steps:
@@ -14,9 +14,12 @@ Demo Steps:
     1. [PyTorch Installation](https://pytorch.org/) help
 1. [Download data](download_data.py) from Coinbase Pro (No API Key required)
 1. [Create a custom dataset](btc_custom_dataset.py)
+1. [Run the `run.py`](run.py) code from the repository's root directory
 
 
 My references:
 - [Towards Data Science Blog](https://towardsdatascience.com/building-efficient-custom-datasets-in-pytorch-2563b946fd9f)
-- [PyTorch Documentation](https://pytorch.org/tutorials/beginner/data_loading_tutorial.html) 
+- [PyTorch Discussion](https://discuss.pytorch.org/t/dataset-class-loading-multiple-data-files/47789/2) 
+- [PyTorch Data Loading Tutorial](https://pytorch.org/tutorials/beginner/data_loading_tutorial.html)
 - [Standford Blog](https://stanford.edu/~shervine/blog/pytorch-how-to-generate-data-parallel)
+- [Tabular Data with PyTorch](https://towardsdatascience.com/better-data-loading-20x-pytorch-speed-up-for-tabular-data-e264b9e34352)
