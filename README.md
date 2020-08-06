@@ -21,6 +21,11 @@ This repository contains example Python code for various patterns, functions, an
 - Super/Child Classes
     - [Write Up](superClass/README.md)
 
+- PyTorch
+    - I use PyTorch a lot in my day to day work. As I get more comfortable with the library I plan on keeping notes/examples here that I took me a while to figure out. I do not plan on keep examples that are easily found on other documentation pages unless I executed the code personally. 
+    - [LSTM](PyTorch/HelloWorld_LSTM) for time series data. 
+    - [Hello World Custom Data Loaders](PyTorch/CustomDataLoaders)
+
 
 ## Contact 
 
