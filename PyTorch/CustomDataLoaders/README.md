@@ -32,9 +32,9 @@ Blogs I found helpful for learning:
 
 # Code Notes
 
-After following the demo steps above, you should have a working code base for a hello world example of a PyTorch custom dataset. There is a LOT more capabilities that can be done with this, and I plan to continue this in more PyTorch examples. But I would like to highligh a few pieces of code that are important to know when working with hdf5 files in PyTorch.  
+After following the demo steps above, you should have a working code base for a hello world example of a PyTorch custom dataset. There is a LOT more capabilities that can be done with this, and I plan to continue this in more PyTorch examples. But I would like to highlight a few pieces of code that are important to know when working with hdf5 files in PyTorch.  
 
-In my custom dataset you will notice that there are three functions that are required for a custom PyTorch Dataset: `__init__`, `__len__` and `__getitem__`. In both of these functions we create an hdf5 file object in Python. This will allow us to interact with our hdf5 file on disk. At first, I wanted to create this object in the `__init__` function so that I only had to load the file a single time, however, I found that hdf5 file objects cannot be shared across processes in Python (which makes total sense due to the GIL). So that means each of the internal functions have the following code: 
+In my custom dataset you will notice that there are three functions that are required for a custom PyTorch Dataset: `__init__`, `__len__` and `__getitem__`. In all of these functions we create an hdf5 file object in Python. This will allow us to interact with our hdf5 file on disk. At first, I wanted to create this object in the `__init__` function so that I only had to load the file a single time, however, I found that hdf5 file objects cannot be shared across processes in Python (which makes sense due to the GIL). So that means each of the internal functions have the following code: 
 ```python
 hf = h5py.File(self.__data_path, 'r')
 data = hf.get(self.__identifier)[:]
