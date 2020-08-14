@@ -11,6 +11,7 @@ In this example, I am going to reproduce the LSTM time series example that is pr
 
 **Training Loss**
 
+![](training_loss.png)
 
 **Predictions**  
 The code below is used to generate predictions. Please notice that we use the output of the model as an input to the next predictions which produces a forecast i.e. we use our predictions to make more predictions.  
@@ -27,6 +28,7 @@ plt.plot(range(0, x_data.shape[0]), np.array(x_data.flatten()))
 plt.show()
 ```
 
+![](predictions.png)
 
 
 

@@ -12,22 +12,25 @@ import numpy as np
 device = 'cuda'  if torch.cuda.is_available() else 'cpu'
 torch.device(device)
 print("Using {}.".format(device))
+torch.cuda.get_device_name(torch.cuda.current_device())
 
 
-sequence_length = 40
+
+
+sequence_length = 32
 forecast = 1
 sine_data = SineWaveDataset(data_path="PyTorch/LSTMWithCustomDataset/data/sine_wave_data.hdf5", sequence_length=sequence_length, forecast=forecast)
-dataloader = DataLoader(sine_data, batch_size=128, shuffle=False, num_workers=2)
+dataloader = DataLoader(sine_data, batch_size=64, shuffle=False, num_workers=2)
 net = LSTMNetwork(batch=True)
 net.float()
 
 
 
 loss_func = nn.MSELoss()
-optimizer = optim.Adam(net.parameters(), lr=0.0001)
+optimizer = optim.Adam(net.parameters(), lr=0.001)
 
 training_loss = []
-epochs = 25
+epochs = 10
 for i in range(0, epochs):
     print("{}: Epoch {} our of {}".format(datetime.utcnow(), i, epochs))
     net.hidden = net.reset_hidden()
@@ -48,12 +51,13 @@ torch.save(net.state_dict(), "PyTorch/LSTMWithCustomDataset/trained_lstm.pt")
 
 
 plt.plot(range(0, epochs), training_loss)
-plt.show()
+plt.savefig("PyTorch/LSTMWithCustomDataset/training_loss.png")
+plt.cla()
 
 
 ### Test our network
 # Provide only the last data point from our model and predict for 1000 time steps
-prediction_length = 100
+prediction_length = 1500
 x, y = sine_data.__getitem__(len(sine_data))
 x_data = torch.from_numpy(x)
 
@@ -72,6 +76,6 @@ for i in range(0, prediction_length):
 
 
 plt.plot(range(0, x_data.shape[0]), np.array(x_data.flatten()))
-plt.show()
+plt.savefig("PyTorch/LSTMWithCustomDataset/predictins.png")
 
 

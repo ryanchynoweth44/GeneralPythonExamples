@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 np.random.seed(2)
 os.makedirs("PyTorch/LSTMWithCustomDataset/data", exist_ok=True)
 
-data_length = 10000
+data_length = 2000
 t_time = np.arange(0, data_length, 0.1)
 amplitude = np.sin(t_time)
 
