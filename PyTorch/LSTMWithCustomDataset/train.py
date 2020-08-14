@@ -9,17 +9,22 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
+device = 'cuda'  if torch.cuda.is_available() else 'cpu'
+torch.device(device)
+print("Using {}.".format(device))
+
+
 sequence_length = 40
 forecast = 1
 sine_data = SineWaveDataset(data_path="PyTorch/LSTMWithCustomDataset/data/sine_wave_data.hdf5", sequence_length=sequence_length, forecast=forecast)
-dataloader = DataLoader(sine_data, batch_size=4, shuffle=False, num_workers=2)
+dataloader = DataLoader(sine_data, batch_size=128, shuffle=False, num_workers=2)
 net = LSTMNetwork(batch=True)
 net.float()
 
 
 
 loss_func = nn.MSELoss()
-optimizer = optim.Adam(net.parameters(), lr=0.001)
+optimizer = optim.Adam(net.parameters(), lr=0.0001)
 
 training_loss = []
 epochs = 25
