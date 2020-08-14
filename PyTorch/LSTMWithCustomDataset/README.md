@@ -6,6 +6,27 @@ In this example, I am going to reproduce the LSTM time series example that is pr
 ## Steps
 1. In our example we will need to [create our sine wave dataset](create_dataset.py). In our case we will store our data as an hdf5 data file. 
 1. Next we will use our dataset in our [training script](train.py), and within our training script we also generate a plot of predictions. 
+    - You will notice that the training script will display our training loss using matplotlib and it will also make predictions using the final datapoint in our sine dataset as the starting point. 
+
+
+**Training Loss**
+
+
+**Predictions**  
+The code below is used to generate predictions. Please notice that we use the output of the model as an input to the next predictions which produces a forecast i.e. we use our predictions to make more predictions.  
+```python
+for i in range(0, prediction_length):
+    with torch.no_grad():
+        x_input = x_data[i:i+sequence_length].reshape(1,-1,1).float()
+        out = net(x_input)
+
+    x_data = torch.cat((x_data.float(), out.flatten()), dim=0)
+
+
+plt.plot(range(0, x_data.shape[0]), np.array(x_data.flatten()))
+plt.show()
+```
+
 
 
 
