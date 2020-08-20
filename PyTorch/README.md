@@ -10,3 +10,6 @@ In this directory I will maintain a set of PyTorch examples to highlight feature
 
 - [LSTMWithCustomDataset](LSTMWithCustomDataset/README.md)
     - Based off the HelloWorld_LSTM example from PyTorch, I create my own custom dataset and train an LSTM to predict the sine wave.  
+
+- [Notes](Notes/README.md)
+    - Various notes about PyTorch best practices or neural network trips for better performing networks. 
