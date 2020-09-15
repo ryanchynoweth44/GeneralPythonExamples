@@ -33,7 +33,6 @@ training_loss = []
 epochs = 10
 for i in range(0, epochs):
     print("{}: Epoch {} our of {}".format(datetime.utcnow(), i, epochs))
-    net.hidden = net.reset_hidden()
     epoch_loss = 0
     for x, y in dataloader:
         x = x.reshape(x.shape[0], sequence_length, -1)
