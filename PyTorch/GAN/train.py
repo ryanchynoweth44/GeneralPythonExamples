@@ -15,12 +15,12 @@ torch.device(device)
 print("Using {}.".format(device))
 
 sequence_length = 42
-forecast = 10
+forecast = 42
 sine_data = SineWaveDataset(data_path="PyTorch/GAN/data/sine_wave_data.hdf5", sequence_length=sequence_length, forecast=forecast)
 dataloader = DataLoader(sine_data, batch_size=64, shuffle=False, num_workers=2)
 
 
-lstm_net = LSTMGenerator(batch=True, output_size=forecast)
+lstm_net = LSTMGenerator(batch=True, output_size=forecast, device=device)
 lstm_net.float()
 lstm_net.to(device)
 gen_optim = optim.SGD(lstm_net.parameters(), lr=0.001, momentum=0.9)
@@ -33,7 +33,7 @@ cnn_net.to(device)
 dis_optim = optim.SGD(cnn_net.parameters(), lr=0.001, momentum=0.9)
 cnn_loss_func = nn.BCELoss()
 
-EPOCHS = 10
+EPOCHS = 100
 
 cnn_training_loss, lstm_training_loss = [], []
 cnn_validation_loss, lstm_validation_loss = [], []
@@ -103,3 +103,5 @@ for epoch in range(EPOCHS):
     plt.savefig('PyTorch/GAN/lstm_training_loss.png')
 
 
+torch.save(lstm_net.state_dict(), "PyTorch/gan/trained_lstm.pt")
+torch.save(cnn_net.state_dict(), "PyTorch/gan/trained_cnn.pt")

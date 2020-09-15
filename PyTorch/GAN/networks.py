@@ -4,7 +4,7 @@ import torch.nn.functional as F
 
 
 class LSTMGenerator(nn.Module):
-    def __init__(self, input_size=1, hidden_size=128, num_layers=2, output_size=1, bias=True, batch=False, dropout=0, bidirectional=False):
+    def __init__(self, input_size=1, hidden_size=128, num_layers=2, output_size=1, bias=True, batch=False, dropout=0, bidirectional=False, device="cpu"):
         """ 
 
         :param num_layers: the number of lstm layers 
@@ -17,6 +17,7 @@ class LSTMGenerator(nn.Module):
         self.num_layers=num_layers 
         self.output_size=output_size 
         self.batch=batch 
+        self.d = device 
 
         # https://pytorch.org/docs/stable/nn.html#lstm
         self.lstm = nn.LSTM(self.input_size, hidden_size=self.hidden_size, num_layers=self.num_layers, bias=bias, batch_first=self.batch, dropout=dropout, bidirectional=bidirectional)
@@ -27,8 +28,8 @@ class LSTMGenerator(nn.Module):
 
     def forward(self, t):
         # Set hidden and cell states 
-        h0 = torch.zeros(self.num_layers, t.size(0), self.hidden_size)
-        c0 = torch.zeros(self.num_layers, t.size(0), self.hidden_size)
+        h0 = torch.zeros(self.num_layers, t.size(0), self.hidden_size).to(self.d)
+        c0 = torch.zeros(self.num_layers, t.size(0), self.hidden_size).to(self.d)
         
         t, _ = self.lstm(t, (h0, c0))  # out: tensor of shape (batch_size, seq_length, hidden_size)
         
