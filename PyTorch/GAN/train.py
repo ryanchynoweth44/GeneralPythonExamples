@@ -7,7 +7,7 @@ import torch.optim as optim
 from datetime import datetime
 import matplotlib.pyplot as plt
 import numpy as np
-
+import pickle
 
 
 device = 'cuda'  if torch.cuda.is_available() else 'cpu'
@@ -15,91 +15,123 @@ torch.device(device)
 print("Using {}.".format(device))
 
 sequence_length = 42
-forecast = 10
-sine_data = SineWaveDataset(data_path="PyTorch/GAN/data/sine_wave_data.hdf5", sequence_length=sequence_length, forecast=forecast)
-dataloader = DataLoader(sine_data, batch_size=64, shuffle=False, num_workers=2)
+forecast_length = 10
+batch_size = 64
+input_size = 1
+sine_data = SineWaveDataset(data_path="PyTorch/GAN/data/sine_wave_data.hdf5", sequence_length=sequence_length, forecast=forecast_length)
+dataloader = DataLoader(sine_data, batch_size=batch_size, shuffle=False, num_workers=2)
+
+training_params = {'sequence_length': sequence_length, 'forecast_length': forecast_length, 'batch_size': batch_size, 'input_size': input_size}
+pickle.dump(training_params, open("PyTorch/GAN/training_parameters.pkl", 'wb'))
 
 
-lstm_net = LSTMGenerator(batch=True, output_size=forecast)
-lstm_net.float()
-lstm_net.to(device)
-gen_optim = optim.SGD(lstm_net.parameters(), lr=0.001, momentum=0.9)
-lstm_loss_func = nn.MSELoss()
+g_net = LSTMGenerator(input_size=input_size, batch=True, output_size=forecast_length)
+g_net.float()
+g_net.to(device)
+g_optim = optim.Adam(g_net.parameters(), lr=0.001)
+
 
 # output size is 1 for a probability between 0 and 1
-cnn_net = CNNDiscriminator(input_size=forecast,output_size=1)
-cnn_net.float()
-cnn_net.to(device)
-dis_optim = optim.SGD(cnn_net.parameters(), lr=0.001, momentum=0.9)
-cnn_loss_func = nn.BCELoss()
+d_net = CNNDiscriminator(input_size=forecast_length,output_size=1)
+d_net.float()
+d_net.to(device)
+d_optim = optim.Adam(d_net.parameters(), lr=0.001)
+
+
+loss_func = nn.BCELoss()
 
 EPOCHS = 10
 
-cnn_training_loss, lstm_training_loss = [], []
-cnn_validation_loss, lstm_validation_loss = [], []
+#Generate fixed noise to be used for visualization
+fixed_noise = torch.randn(batch_size, forecast_length, input_size, device=device)
+
+
+d_training_loss, g_training_loss = [], []
+d_validation_loss, g_validation_loss = [], []
 for epoch in range(EPOCHS):
     print("{}: Starting Epoch {}.".format(datetime.utcnow(), epoch))
-    lstm_epoch_loss, cnn_epoch_loss = 0, 0 
+    g_epoch_loss, d_epoch_loss = 0, 0 
     for i, data in enumerate(dataloader, 0):
+        #Save just first batch of real data for displaying
+        if i == 0:
+            real_display = data
+            
+        break
+
+
+
         ######### Discriminator
         ####
-        # (1) Train cnn_net with real data
+        # (1) Train d_net with real data
         ####
         # zero gradients
-        cnn_net.zero_grad()
+        d_net.zero_grad()
         # get x and y - y is all 1's
         real_seq = data[1]
-        real_seq = real_seq.reshape(real_seq.shape[0], forecast, 1, 1).to(device) # (batch_size, height, width, depth)
+        real_seq = real_seq.reshape(real_seq.shape[0], forecast_length, 1).to(device) # (batch_size, height, width)
         real_y = torch.full((real_seq.size(0),), 1, dtype=torch.float, device=device).reshape(-1,1)
-        # forward pass
-        output = cnn_net(real_seq.float())
-        cnn_real_loss = cnn_loss_func(output, real_y)
-        cnn_real_loss.backward(retain_graph=True)
+        # forward pass and calculate loss
+        output = d_net(real_seq.float())
+        d_real_loss = loss_func(output, real_y)
+        # backward pass
+        d_real_loss.backward(retain_graph=True)
+        
         ####
-        # (2) Train cnn_net with fake data
+        # (2) Train d_net with 'fake' data
+        # In our case we will be passing in real data to the g_net 
+        # The output of the generator will be passed into d_net with a label of 0
+        # We will then update d_net with error
+        # 
         ####
         # create fake data with generator
-        noise = torch.randn(real_seq.shape[0], sequence_length, 1, device=device)
-        fake_y = torch.full((real_seq.size(0),), 0, dtype=torch.float, device=device).reshape(-1,1)
-        # generate fake data with lstm
-        noise_output = lstm_net(noise)
-        noise_output = noise_output.reshape(noise_output.shape[0], noise_output.shape[1], 1,1)
+        x = data[0]
+        x = x.reshape(x.size(0), x.size(1), 1).float()
+        y_label = torch.full((real_seq.size(0),), 0, dtype=torch.float, device=device).reshape(-1,1)
+        # generate fake data with g
+        g_output = g_net(x)
+        g_output = g_output.reshape(g_output.shape[0], g_output.shape[1], 1)
         # classify output with 
-        fake_output = cnn_net(noise_output.float())
+        d_output = d_net(noise_output.float())
         # calculate loss
-        cnn_fake_loss = cnn_loss_func(output, fake_y)
+        d_fake_loss = loss_func(d_output, y_label)
         # backward pass
-        cnn_fake_loss.backward()
-        dis_optim.step()
-        cnn_epoch_loss += (cnn_fake_loss+cnn_real_loss)
+        d_fake_loss.backward()
+        d_optim.step()
+        d_epoch_loss += (d_fake_loss+d_real_loss)
+
 
         ######### Generator
         ####
-        # (3) Train lstm_net
+        # (3) Train g_net
+        # Here we need to optimize our g_net using our predictions from (2). 
+        # The idea here is that we are using our d_net as the loss_func to improve predictions
+        # 
         ####
-        lstm_net.zero_grad()
-        x, y = data[0], data[1]
-        x = x.reshape(x.shape[0], x.shape[1], 1).to(device)
-        y = y.to(device)
+        g_net.zero_grad()
+        label = torch.full((g_output.size(0),), 1, dtype=torch.float, device=device).reshape(-1,1)
         # forward pass
-        output = lstm_net(x.float())
+        output = d_net(g_output.float())
         # calculate loss
-        lstm_loss = lstm_loss_func(output.float(), y.float())
+        g_loss = loss_func(output.float(), label.float())
         # backward pass
-        lstm_loss.backward()
-        gen_optim.step()
-        lstm_epoch_loss += lstm_loss
+        g_loss.backward()
+        g_optim.step()
+        g_epoch_loss += g_loss
 
-    cnn_training_loss.append(cnn_epoch_loss)
-    lstm_training_loss.append(lstm_epoch_loss)
+
+    d_training_loss.append(d_epoch_loss)
+    g_training_loss.append(g_epoch_loss)
     
     plt.cla()
-    _ = plt.plot(range(0, len(cnn_training_loss)), cnn_training_loss, color='blue')
+    _ = plt.plot(range(0, len(d_training_loss)), d_training_loss, color='blue')
     plt.tight_layout()
-    plt.savefig('PyTorch/GAN/cnn_training_loss.png')
+    plt.savefig('PyTorch/GAN/d_training_loss.png')
     plt.cla()
-    _ = plt.plot(range(0, len(lstm_training_loss)), lstm_training_loss, color='green')
+    _ = plt.plot(range(0, len(g_training_loss)), g_training_loss, color='green')
     plt.tight_layout()
-    plt.savefig('PyTorch/GAN/lstm_training_loss.png')
+    plt.savefig('PyTorch/GAN/g_training_loss.png')
 
+# save network states
+torch.save(d_net.state_dict(), 'PyTorch/GAN/d_net.pt')
+torch.save(g_net.state_dict(), 'PyTorch/GAN/g_net.pt')
 

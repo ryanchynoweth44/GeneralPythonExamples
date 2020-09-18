@@ -30,7 +30,7 @@ class LSTMGenerator(nn.Module):
         h0 = torch.zeros(self.num_layers, t.size(0), self.hidden_size)
         c0 = torch.zeros(self.num_layers, t.size(0), self.hidden_size)
         
-        t, _ = self.lstm(t, (h0, c0))  # out: tensor of shape (batch_size, seq_length, hidden_size)
+        t, _ = self.lstm(t, (h0, c0))  # t: tensor of shape (batch_size, seq_length, hidden_size)
         
         t = self.fc1(t[:, -1, :])
         return t
@@ -42,8 +42,8 @@ class CNNDiscriminator(nn.Module):
     def __init__(self, input_size, output_size=1):
         super(CNNDiscriminator, self).__init__()
 
-        self.conv1 = nn.Conv2d(in_channels=input_size, out_channels=5, kernel_size=1)
-        self.conv2 = nn.Conv2d(in_channels=5, out_channels=10, kernel_size=1)
+        self.conv1 = nn.Conv1d(in_channels=input_size, out_channels=5, kernel_size=1)
+        self.conv2 = nn.Conv1d(in_channels=5, out_channels=10, kernel_size=1)
         
         self.fc1 = nn.Linear(in_features=10*1*1, out_features=120)
         self.out = nn.Linear(in_features=120, out_features=output_size)
@@ -61,7 +61,7 @@ class CNNDiscriminator(nn.Module):
         t = F.relu(t)
         t = F.max_pool2d(t, kernel_size=1, stride=1)
 
-        # (3) hidden linear layer 5
+        # (3) hidden linear layer 1
         t = t.reshape(-1, 10*1*1)
         t = self.fc1(t)
         t = F.relu(t)
