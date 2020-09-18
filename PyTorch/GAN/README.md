@@ -19,3 +19,9 @@ The goal of training the discriminator is to maximize the probability of correct
 
 
 The goal of training the generator is to create the best "fake" data as possible so that we can trick the discriminator into thinking it is real data. In many cases of GANs we will typically pass in random data into the generator network to produce a random output (i.e. image) to fake out the discriminator. In the case with time series it is important that we pass in sequences so that when we go too apply the model in practice we can pass in current time series data and produce a forecast. Essentially instead of using a loss function like `nn.MSELoss()` we use the discriminator as our loss function.    
+
+
+
+## Results
+
+![](predictions.png)

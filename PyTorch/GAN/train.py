@@ -25,7 +25,7 @@ training_params = {'sequence_length': sequence_length, 'forecast_length': foreca
 pickle.dump(training_params, open("PyTorch/GAN/training_parameters.pkl", 'wb'))
 
 
-g_net = LSTMGenerator(input_size=input_size, batch=True, output_size=forecast_length)
+g_net = LSTMGenerator(input_size=input_size, batch=True, output_size=forecast_length, device=device)
 g_net.float()
 g_net.to(device)
 g_optim = optim.Adam(g_net.parameters(), lr=0.001)
@@ -52,14 +52,7 @@ for epoch in range(EPOCHS):
     print("{}: Starting Epoch {}.".format(datetime.utcnow(), epoch))
     g_epoch_loss, d_epoch_loss = 0, 0 
     for i, data in enumerate(dataloader, 0):
-        #Save just first batch of real data for displaying
-        if i == 0:
-            real_display = data
-            
-        break
-
-
-
+        # break
         ######### Discriminator
         ####
         # (1) Train d_net with real data
@@ -74,7 +67,7 @@ for epoch in range(EPOCHS):
         output = d_net(real_seq.float())
         d_real_loss = loss_func(output, real_y)
         # backward pass
-        d_real_loss.backward(retain_graph=True)
+        d_real_loss.backward()
         
         ####
         # (2) Train d_net with 'fake' data
@@ -84,14 +77,14 @@ for epoch in range(EPOCHS):
         # 
         ####
         # create fake data with generator
-        x = data[0]
+        x = data[0].to(device)
         x = x.reshape(x.size(0), x.size(1), 1).float()
         y_label = torch.full((real_seq.size(0),), 0, dtype=torch.float, device=device).reshape(-1,1)
         # generate fake data with g
         g_output = g_net(x)
         g_output = g_output.reshape(g_output.shape[0], g_output.shape[1], 1)
         # classify output with 
-        d_output = d_net(noise_output.float())
+        d_output = d_net(g_output.detach().float())
         # calculate loss
         d_fake_loss = loss_func(d_output, y_label)
         # backward pass
@@ -108,11 +101,11 @@ for epoch in range(EPOCHS):
         # 
         ####
         g_net.zero_grad()
-        label = torch.full((g_output.size(0),), 1, dtype=torch.float, device=device).reshape(-1,1)
+        y_label = torch.full((g_output.size(0),), 1, dtype=torch.float, device=device).reshape(-1,1)
         # forward pass
         output = d_net(g_output.float())
         # calculate loss
-        g_loss = loss_func(output.float(), label.float())
+        g_loss = loss_func(output.float(), y_label.float())
         # backward pass
         g_loss.backward()
         g_optim.step()
@@ -135,5 +128,3 @@ for epoch in range(EPOCHS):
 torch.save(d_net.state_dict(), 'PyTorch/GAN/d_net.pt')
 torch.save(g_net.state_dict(), 'PyTorch/GAN/g_net.pt')
 
-torch.save(lstm_net.state_dict(), "PyTorch/gan/trained_lstm.pt")
-torch.save(cnn_net.state_dict(), "PyTorch/gan/trained_cnn.pt")

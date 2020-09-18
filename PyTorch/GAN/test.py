@@ -36,7 +36,7 @@ x_data = torch.from_numpy(x)
 lstm_net.load_state_dict(torch.load("PyTorch/gan/trained_lstm.pt"))
 
 
-for i in range(0, 1):
+for i in range(0, prediction_length, forecast):
     with torch.no_grad():
         x_input = x_data[i:i+sequence_length].reshape(1,-1,1).float().to(device)
         out = lstm_net(x_input)
