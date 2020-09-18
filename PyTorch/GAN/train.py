@@ -40,7 +40,7 @@ d_optim = optim.Adam(d_net.parameters(), lr=0.001)
 
 loss_func = nn.BCELoss()
 
-EPOCHS = 10
+EPOCHS = 100
 
 #Generate fixed noise to be used for visualization
 fixed_noise = torch.randn(batch_size, forecast_length, input_size, device=device)
@@ -135,3 +135,5 @@ for epoch in range(EPOCHS):
 torch.save(d_net.state_dict(), 'PyTorch/GAN/d_net.pt')
 torch.save(g_net.state_dict(), 'PyTorch/GAN/g_net.pt')
 
+torch.save(lstm_net.state_dict(), "PyTorch/gan/trained_lstm.pt")
+torch.save(cnn_net.state_dict(), "PyTorch/gan/trained_cnn.pt")
