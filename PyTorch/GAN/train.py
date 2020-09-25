@@ -22,7 +22,7 @@ sine_data = SineWaveDataset(data_path="PyTorch/GAN/data/sine_wave_data.hdf5", se
 dataloader = DataLoader(sine_data, batch_size=batch_size, shuffle=False, num_workers=2)
 
 training_params = {'sequence_length': sequence_length, 'forecast_length': forecast_length, 'batch_size': batch_size, 'input_size': input_size}
-pickle.dump(training_params, open("PyTorch/GAN/training_parameters.pkl", 'wb'))
+pickle.dump(training_params, open("PyTorch/GAN/data/training_parameters.pkl", 'wb'))
 
 
 g_net = LSTMGenerator(input_size=input_size, batch=True, output_size=forecast_length, device=device)
@@ -42,8 +42,6 @@ loss_func = nn.BCELoss()
 
 EPOCHS = 100
 
-#Generate fixed noise to be used for visualization
-fixed_noise = torch.randn(batch_size, forecast_length, input_size, device=device)
 
 
 d_training_loss, g_training_loss = [], []
@@ -118,13 +116,13 @@ for epoch in range(EPOCHS):
     plt.cla()
     _ = plt.plot(range(0, len(d_training_loss)), d_training_loss, color='blue')
     plt.tight_layout()
-    plt.savefig('PyTorch/GAN/d_training_loss.png')
+    plt.savefig('PyTorch/GAN/imgs/d_training_loss.png')
     plt.cla()
     _ = plt.plot(range(0, len(g_training_loss)), g_training_loss, color='green')
     plt.tight_layout()
-    plt.savefig('PyTorch/GAN/g_training_loss.png')
+    plt.savefig('PyTorch/GAN/imgs/g_training_loss.png')
 
 # save network states
-torch.save(d_net.state_dict(), 'PyTorch/GAN/d_net.pt')
-torch.save(g_net.state_dict(), 'PyTorch/GAN/g_net.pt')
+torch.save(d_net.state_dict(), 'PyTorch/GAN/networks/d_net.pt')
+torch.save(g_net.state_dict(), 'PyTorch/GAN/networks/g_net.pt')
 

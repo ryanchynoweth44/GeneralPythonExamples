@@ -74,6 +74,20 @@ LSTMs and GRUs are often efficient enough on their own to have a single LSTM or 
 
 ## CNN 
 
-Convolutional Neural Networks are very similar to MLPs, however, they tend to operate over multiple dimensional objects. In order to process this type of data they utilize convolutions. 
+Helpful Links: 
+- https://towardsdatascience.com/convolutional-neural-networks-part-1-2aeb17fc208c
+- https://arxiv.org/pdf/1603.07285v1.pdf
 
+Convolutional Neural Networks leverage convolutional layers, prior to processing the data through a set of linear layers to produce the output. 
 
+**Convolutional layers** apply a set of filters to input data to create a feature map that summarizes the presence of detected features. This is essentially a data transformation procedure that can be processed by linear layers. The main components of convolutional layers are: 
+- input_channels: the depth of the input data i.e. grayscale = 1 and RGB = 3.
+- output_channels: the number of kernels/filters the layer applies to the input data
+- kernel_size: the `m x n` size of the matrix used to apply the filter. 
+- stride: the step size used when applying filters to input data
+- padding: a strategy designed to add zeros to the boarder of input data so that the edges of the data are not weighted less than the rest of the input. 
+
+There are three types of convolutional layers:
+- 1-D Convolution:
+- 2-D Convolution:
+- 3-D Convolution: 
