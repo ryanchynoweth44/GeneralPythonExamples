@@ -88,7 +88,7 @@ for epoch in range(EPOCHS):
         # backward pass
         d_fake_loss.backward()
         d_optim.step()
-        d_epoch_loss += (d_fake_loss+d_real_loss)
+        d_epoch_loss += (d_fake_loss.item()+d_real_loss.item())
 
 
         ######### Generator
