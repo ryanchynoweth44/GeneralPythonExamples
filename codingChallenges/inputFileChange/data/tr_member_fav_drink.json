@@ -1,0 +1,184 @@
+{
+    "user" : [
+      {
+        "id" : "1",
+        "name" : "Leonardo DiCaprio"
+      },
+      {
+        "id" : "2",
+        "name" : "Scarlett Johansson"
+      },
+      {
+        "id" : "3",
+        "name" : "Jennifer Lawrence"
+      },
+      {
+        "id" : "4",
+        "name" : "Robert Downey Jr"
+      },
+      {
+        "id" : "5",
+        "name" : "Charlize Theron"
+      },
+      {
+        "id" : "6",
+        "name" : "Tom Hanks"
+      },
+      {
+        "id" : "7",
+        "name" : "Dwayne Johnson"
+      }
+    ],
+    "favorite_tr_drinks" : [
+      {
+        "id" : "1",
+        "user_id" : "2",
+        "drink_id" : [
+          "8",
+          "22"
+        ]
+      },
+      {
+        "id" : "2",
+        "user_id" : "3",
+        "drink_id" : [
+          "6",
+          "8",
+          "11"
+        ]
+      },
+      {
+        "id" : "3",
+        "user_id" : "7",
+        "drink_id" : [
+          "7",
+          "12",
+          "13",
+          "16",
+          "2"
+        ]
+      }
+    ],
+    "drink": [
+      {
+        "id" : "1",
+        "type": "Sparkling Ice",
+        "flavor": "Grape Raspberry"
+      },
+      {
+        "id" : "2",
+        "type": "Sparkling Ice",
+        "flavor": "Fruit Punch"
+      },
+      {
+        "id" : "3",
+        "type": "Sparkling Ice",
+        "flavor": "Pink Grapefruit"
+      },
+      {
+        "id" : "4",
+        "type": "Sparkling Ice",
+        "flavor": "Lemon Lime"
+      },
+      {
+        "id" : "5",
+        "type": "Sparkling Ice",
+        "flavor": "Orange Mango"
+      },
+      {
+        "id" : "6",
+        "type": "Sparkling Ice",
+        "flavor": "Coconit Pineapple"
+      },
+      {
+        "id" : "7",
+        "type": "Sparkling Ice + Caffeine",
+        "flavor": "Cherry Vanilla"
+      },
+      {
+        "id" : "8",
+        "type": "Sparkling Ice + Caffeine",
+        "flavor": "Black Raspberry"
+      },
+      {
+        "id" : "9",
+        "type": "Sparkling Ice + Caffeine",
+        "flavor": "Strawberry Citrus"
+      },
+      {
+        "id" : "10",
+        "type": "Sparkling Ice + Caffeine",
+        "flavor": "Orange Passion Fruit"
+      },
+      {
+        "id" : "11",
+        "type": "Talking Rain Sparkling Waters",
+        "flavor": "Grapefruit"
+      },
+      {
+        "id" : "12",
+        "type": "Talking Rain Sparkling Waters",
+        "flavor": "Original"
+      },
+      {
+        "id" : "13",
+        "type": "Talking Rain Sparkling Waters",
+        "flavor": "Peach Nectarine"
+      },
+      {
+        "id" : "14",
+        "type": "Talking Rain Sparkling Waters",
+        "flavor": "Black Cherry"
+      },
+      {
+        "id" : "15",
+        "type": "Talking Rain Sparkling Waters",
+        "flavor": "Mountain Berry"
+      },
+      {
+        "id" : "16",
+        "type": "Talking Rain Sparkling Waters + Caffeine",
+        "flavor": "Citrus Zest"
+      },
+      {
+        "id" : "17",
+        "type": "Talking Rain Sparkling Waters + Caffeine",
+        "flavor": "Green Apple"
+      },
+      {
+        "id" : "18",
+        "type": "Talking Rain Sparkling Waters + Caffeine",
+        "flavor": "Summer Melon"
+      },
+      {
+        "id" : "19",
+        "type": "Talking Rain Elevate",
+        "flavor": "Triple Berry"
+      },
+      {
+        "id" : "20",
+        "type": "Talking Rain Elevate",
+        "flavor": "Power Punch"
+      },
+      {
+        "id" : "21",
+        "type": "Talking Rain Elevate",
+        "flavor": "Mango Fusion"
+      },
+      {
+        "id" : "22",
+        "type": "Talking Rain Essentials",
+        "flavor": "Watermelon Lemon"
+      },
+      {
+        "id" : "23",
+        "type": "Talking Rain Essentials",
+        "flavor": "Mixed Berry"
+      },
+      {
+        "id" : "24",
+        "type": "Talking Rain Essentials",
+        "flavor": "Pineapple Mango"
+      }
+    ]
+}
