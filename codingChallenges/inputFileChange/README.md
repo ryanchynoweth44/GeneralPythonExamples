@@ -1,6 +1,5 @@
 # Coding Exercise
 
-This coding execise is developed using python 3.8.3. 
 
 ## Set up
 
@@ -48,14 +47,20 @@ Requirements:
 
 ## Application Overview
 
+To complete this coding challenge I decided to develop three class: `users`, `drinks`, and `favorite_drinks`. These classes represent a collection of users, drinks, and users' favorite drinks which are simply stored as `dict` objects in Python. I determined it not necessary to create user, drink, and favorite_drink classes (singular objects), since a simple list of dictionaries should suffice for all functionality. 
 
+Each of the libraries described here can be found in the [`libs`](./libs) directory.
+
+The [`run.py`](run.py) is the startup script for the solution. It simply loads the required files and processes the changes before writing out the new json file. There may be a more efficient way to write this program than using three separate `for` loops but again should suffice for this solution. 
+
+Please read in-line comments for further code description. 
 
 
 
 
 ## Change File Format
 
-The change file format closely mirrors the given input file. The change file is a json file that contains three separate arrays for users, drinks, and favorite_tr_drinks. EAch array is expected to have the appropriate object structure. Please note that valid `actions` for all three types of objects are `add` and `delete`.  
+The change file format closely mirrors the given input file. The change file is a json file that contains three separate arrays for users, drinks, and favorite_tr_drinks. Each array is expected to have the appropriate object structure. Please note that valid `actions` for all three types of objects are `add` and `delete`.  
 
 For the user object we expect the following information. 
 ```json
