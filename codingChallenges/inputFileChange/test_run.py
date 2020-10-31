@@ -95,15 +95,15 @@ def test_get_fav_drinks():
 
 
 
-def test_remove_fav_drink():
+def test_delete_fav_drink():
     reload()
     # actual fav
     prev_cnt = len(favorite_drinks.get_fav_drinks('2'))
-    favorite_drinks.remove_fav_drink(user_id='2', drink_id='8')
+    favorite_drinks.delete_fav_drink(user_id='2', drink_id='8')
     assert len(favorite_drinks.get_fav_drinks('2')) == (prev_cnt-1)
     # non-existent fav drink
     prev_cnt = len(favorite_drinks.get_fav_drinks('2'))
-    favorite_drinks.remove_fav_drink(user_id='2', drink_id='88')
+    favorite_drinks.delete_fav_drink(user_id='2', drink_id='88')
     assert len(favorite_drinks.get_fav_drinks('2')) == prev_cnt
 
 

@@ -1,8 +1,8 @@
 {
-    "user" : [
+    "user": [
         {
-         "action": "add",
-         "name": "Ryan Chynoweth"   
+            "action": "add",
+            "name": "Ryan Chynoweth"
         },
         {
             "action": "delete",
@@ -10,25 +10,23 @@
         },
         {
             "action": "add",
-            "name": "Tom Hanks"   
+            "name": "Tom Hanks"
         },
         {
             "action": "delete",
             "name": "This is a fake name"
-        } 
-        
-    ], 
-    "drink" : [
+        }
+    ],
+    "drink": [
         {
-         "action": "add",
-         "type": "Sparkling Ice",
-         "flavor": "Kiwi"
+            "action": "add",
+            "type": "Sparkling Ice",
+            "flavor": "Kiwi"
         },
         {
             "action": "delete",
             "type": "Sparkling Ice",
-            "flavor": "Pink Grapefruit",
-            "id": "3"
+            "flavor": "Pink Grapefruit"
         },
         {
             "action": "add",
@@ -38,11 +36,9 @@
         {
             "action": "delete",
             "type": "No Type",
-            "flavor": "No Flavor",
-            "id": "10000"
-        } 
-        
-    ], 
+            "flavor": "No Flavor"
+        }
+    ],
     "favorite_tr_drinks": [
         {
             "action": "add",
@@ -58,8 +54,8 @@
                         "flavor": "New Flavor 1"
                     }
                 ]
-            } 
-        }, 
+            }
+        },
         {
             "action": "delete",
             "fav_drink": {
@@ -72,7 +68,7 @@
                         "drink_id": "2"
                     }
                 ]
-            } 
+            }
         },
         {
             "action": "add",
@@ -82,29 +78,43 @@
                     {
                         "type": "Sparkling Ice",
                         "flavor": "Coconit Pineapple"
-                      },
-                      {
+                    },
+                    {
                         "type": "Sparkling Ice + Caffeine",
                         "flavor": "Cherry Vanilla 2.0"
-                      }
+                    }
                 ]
-            } 
-        }, 
+            }
+        },
         {
             "action": "delete",
             "fav_drink": {
                 "user_id": "1",
                 "drinks": [
                     {
-                        "type": "No Type",
-                        "flavor": "No Flavor"
+                        "drink_id": "1200"
                     },
                     {
-                        "type": "No Type",
-                        "flavor": "No Flavor"
+                        "drink_id": "20000"
                     }
                 ]
-            } 
+            }
+        },
+        {
+            "action": "add",
+            "fav_drink": {
+                "user_id": "6",
+                "drinks": [
+                    {
+                        "type": "Sparkling Ice 3.0",
+                        "flavor": "Coconit Pineapple 2"
+                    },
+                    {
+                        "type": "Sparkling Ice + Caffeine 4",
+                        "flavor": "Cherry Vanilla 2.0"
+                    }
+                ]
+            }
         }
     ]
 }

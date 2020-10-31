@@ -11,10 +11,12 @@ class FavoriteDrinks():
         self.favorite_drinks = favorite_drinks
 
     def get_fav_drinks(self, user_id):
+        """ Gets the fav drinks for a given user id. """
         assert type(user_id) == str
         return next((fd.get('drink_id') for fd in self.favorite_drinks if fd.get('user_id')==user_id), None)
 
     def __generate_id(self):
+        """ Incrementally generates fav drink ids. """
         ids = [int(fd.get('id')) for fd in self.favorite_drinks]
         return str(max(ids)+1)
 
@@ -32,11 +34,16 @@ class FavoriteDrinks():
         user_check = self.users.get_user_name(user_id)
         drinks_check = [self.drinks.get_drinks_by_flavor_and_type(d.get('flavor'), d.get('type')) for d in drinks]
 
+        # make sure that at least one drink exists in the list
         if all(x is None for x in drinks_check):
             print("All drinks provided do not exist. We will not add favorite drinks since one of the drinks must already exist.")
-        elif user_check is None: # user does not exist
+        
+        # user does not exist
+        elif user_check is None: 
             print("User Id {} does not exist.".format(user_id))
-        else : # add drinks
+        
+        # add fav drinks
+        else : 
             # user has existing fav drinks
             if fav_drinks is not None:
                 for d in drinks:
@@ -54,7 +61,7 @@ class FavoriteDrinks():
                 self.favorite_drinks.append({"id": fd_id, "user_id": user_id, "drink_id": ids})
 
     def add_fav_drink(self, user_id, drink_id):
-        """ Adds an existing drink id to a user's fav_drinks. """
+        """ Adds a single existing drink id to a user's fav_drinks. """
         assert type(user_id) == str
         assert type(drink_id) == str    
 
@@ -74,13 +81,13 @@ class FavoriteDrinks():
                 self.favorite_drinks.append({"id": fd_id, "user_id": user_id, "drink_id": [drink_id]})
 
 
-    def remove_fav_drink(self, user_id, drink_id):
+    def delete_fav_drink(self, user_id, drink_id):
         """ Removes a single drink id from a given user's favorite_tr_drinks """
         assert type(user_id) == str
         assert type(drink_id) == str
         drinks = self.get_fav_drinks(user_id)
         user_check = self.users.get_user_name(user_id)
-        if drink_id in drinks:
+        if drinks is not None and drink_id in drinks:
             drinks.remove(drink_id)
         elif user_check is None:
             print("User Id {} does not exist.".format(user_id))
