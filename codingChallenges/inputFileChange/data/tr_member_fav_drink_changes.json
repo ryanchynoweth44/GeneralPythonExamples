@@ -1,0 +1,142 @@
+{
+    "user" : [
+        {
+         "action": "add",
+         "name": "Ryan Chynoweth"   
+        },
+        {
+            "action": "delete",
+            "name": "Charlize Theron"
+        },
+        {
+            "action": "add",
+            "name": "Tom Hanks"   
+        },
+        {
+            "action": "delete",
+            "name": "This is a fake name"
+        } 
+        
+    ], 
+    "drink" : [
+        {
+         "action": "add",
+         "type": "Sparkling Ice",
+         "flavor": "Kiwi"
+        },
+        {
+            "action": "delete",
+            "type": "Sparkling Ice",
+            "flavor": "Pink Grapefruit"
+        },
+        {
+            "action": "add",
+            "type": "Sparkling Ice",
+            "flavor": "Lemon Lime"
+        },
+        {
+            "action": "delete",
+            "type": "No Type",
+            "flavor": "No Flavor"
+        } 
+        
+    ], 
+    "favorite_tr_drinks": [
+        {
+            "action": "add",
+            "fav_drink": {
+                "user_id": 3,
+                "drinks": [
+                    {
+                        "type": "No Type",
+                        "flavor": "No Flavor"
+                    },
+                    {
+                        "type": "No Type",
+                        "flavor": "No Flavor"
+                    }
+                ]
+            } 
+        }, 
+        {
+            "action": "delete",
+            "fav_drink": {
+                "user_id": 3,
+                "drinks": [
+                    {
+                        "type": "No Type",
+                        "flavor": "No Flavor"
+                    },
+                    {
+                        "type": "No Type",
+                        "flavor": "No Flavor"
+                    }
+                ]
+            } 
+        },
+        {
+            "action": "add",
+            "fav_drink": {
+                "user_id": 3,
+                "drinks": [
+                    {
+                        "type": "No Type",
+                        "flavor": "No Flavor"
+                    },
+                    {
+                        "type": "No Type",
+                        "flavor": "No Flavor"
+                    }
+                ]
+            } 
+        }, 
+        {
+            "action": "delete",
+            "fav_drink": {
+                "user_id": 3,
+                "drinks": [
+                    {
+                        "type": "No Type",
+                        "flavor": "No Flavor"
+                    },
+                    {
+                        "type": "No Type",
+                        "flavor": "No Flavor"
+                    }
+                ]
+            } 
+        },
+        {
+            "action": "add",
+            "fav_drink": {
+                "user_id": 3,
+                "drinks": [
+                    {
+                        "type": "No Type",
+                        "flavor": "No Flavor"
+                    },
+                    {
+                        "type": "No Type",
+                        "flavor": "No Flavor"
+                    }
+                ]
+            } 
+        }, 
+        {
+            "action": "delete",
+            "fav_drink": {
+                "user_id": 3,
+                "drinks": [
+                    {
+                        "type": "No Type",
+                        "flavor": "No Flavor"
+                    },
+                    {
+                        "type": "No Type",
+                        "flavor": "No Flavor"
+                    }
+                ]
+            } 
+        }
+    ]
+}

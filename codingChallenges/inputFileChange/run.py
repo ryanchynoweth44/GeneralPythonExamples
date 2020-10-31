@@ -16,7 +16,12 @@ drinks = Drinks(input_data.get('drink'))
 favorite_drinks = FavoriteDrinks(input_data.get('favorite_tr_drinks'), users=users, drinks=drinks)
 favorite_drinks.users.list_users()
 favorite_drinks.drinks.list_drinks()
+favorite_drinks.favorite_drinks
 
+
+favorite_drinks.remove_fav_drink('7', '12')
+favorite_drinks.remove_fav_drink('7', '244')
+favorite_drinks.favorite_drinks
 
 users.add_user('Ryan Chynoweth')
 favorite_drinks.users.list_users()

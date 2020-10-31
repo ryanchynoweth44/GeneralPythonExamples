@@ -19,6 +19,9 @@ class Users():
             Users.__instance = self
             Users.users = users
 
+    def reload(self, users):
+        """ Used to reload data for tests """
+        self.users = users
     
     def get_user_id(self, name):
         assert type(name) == str
@@ -39,6 +42,14 @@ class Users():
         else :
             return 'User Already Exists.'
 
+    def delete_user(self, id):
+        user_list = []
+        for u in self.list_users():
+            if u.get('id') != id:
+                user_list.append(u)
+            else :
+                continue
+        self.users = user_list
 
     def list_users(self):
         return self.users
