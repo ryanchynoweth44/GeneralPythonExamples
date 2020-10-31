@@ -27,7 +27,8 @@
         {
             "action": "delete",
             "type": "Sparkling Ice",
-            "flavor": "Pink Grapefruit"
+            "flavor": "Pink Grapefruit",
+            "id": "3"
         },
         {
             "action": "add",
@@ -37,7 +38,8 @@
         {
             "action": "delete",
             "type": "No Type",
-            "flavor": "No Flavor"
+            "flavor": "No Flavor",
+            "id": "10000"
         } 
         
     ], 
@@ -45,15 +47,15 @@
         {
             "action": "add",
             "fav_drink": {
-                "user_id": 3,
+                "user_id": "3",
                 "drinks": [
                     {
-                        "type": "No Type",
-                        "flavor": "No Flavor"
+                        "type": "Sparkling Ice",
+                        "flavor": "Kiwi"
                     },
                     {
-                        "type": "No Type",
-                        "flavor": "No Flavor"
+                        "type": "New Type 1",
+                        "flavor": "New Flavor 1"
                     }
                 ]
             } 
@@ -61,15 +63,13 @@
         {
             "action": "delete",
             "fav_drink": {
-                "user_id": 3,
+                "user_id": "7",
                 "drinks": [
                     {
-                        "type": "No Type",
-                        "flavor": "No Flavor"
+                        "drink_id": "12"
                     },
                     {
-                        "type": "No Type",
-                        "flavor": "No Flavor"
+                        "drink_id": "2"
                     }
                 ]
             } 
@@ -77,55 +77,23 @@
         {
             "action": "add",
             "fav_drink": {
-                "user_id": 3,
+                "user_id": "6",
                 "drinks": [
                     {
-                        "type": "No Type",
-                        "flavor": "No Flavor"
-                    },
-                    {
-                        "type": "No Type",
-                        "flavor": "No Flavor"
-                    }
+                        "type": "Sparkling Ice",
+                        "flavor": "Coconit Pineapple"
+                      },
+                      {
+                        "type": "Sparkling Ice + Caffeine",
+                        "flavor": "Cherry Vanilla 2.0"
+                      }
                 ]
             } 
         }, 
         {
             "action": "delete",
             "fav_drink": {
-                "user_id": 3,
-                "drinks": [
-                    {
-                        "type": "No Type",
-                        "flavor": "No Flavor"
-                    },
-                    {
-                        "type": "No Type",
-                        "flavor": "No Flavor"
-                    }
-                ]
-            } 
-        },
-        {
-            "action": "add",
-            "fav_drink": {
-                "user_id": 3,
-                "drinks": [
-                    {
-                        "type": "No Type",
-                        "flavor": "No Flavor"
-                    },
-                    {
-                        "type": "No Type",
-                        "flavor": "No Flavor"
-                    }
-                ]
-            } 
-        }, 
-        {
-            "action": "delete",
-            "fav_drink": {
-                "user_id": 3,
+                "user_id": "1",
                 "drinks": [
                     {
                         "type": "No Type",
